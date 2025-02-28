@@ -1,28 +1,37 @@
+name: EAS Update Workflow
+
 on:
   push:
     branches:
       - master
+
 jobs:
   update:
     runs-on: ubuntu-latest
+    
     steps:
+      # Step 1: Checkout the code from the repository
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js (with caching for npm)
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          cache: yarn
+          cache: 'npm'
 
+      # Step 3: Set up Expo CLI for EAS build (Ensure EAS CLI is installed)
       - name: 🏗 Setup EAS
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN }}  # You should store your Expo token as a secret in GitHub
 
+      # Step 4: Install project dependencies with npm
       - name: 📦 Install dependencies
-        run: yarn install
+        run: npm install
 
+      # Step 5: Perform an EAS Update
       - name: 🚀 Create update
         run: eas update --auto --non-interactive
