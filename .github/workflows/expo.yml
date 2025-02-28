@@ -34,4 +34,4 @@ jobs:
 
       # Step 5: Perform an EAS Update
       - name: 🚀 Create update
-        run: eas update --auto --non-interactive
+        run: eas build --non-interactive
