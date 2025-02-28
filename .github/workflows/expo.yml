@@ -34,4 +34,5 @@ jobs:
 
       # Step 5: Perform an EAS Update
       - name: 🚀 Create update
-        run: eas build --non-interactive
+        run: eas build --platform ios,android --non-interactive
+
